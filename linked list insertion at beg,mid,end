@@ -1,0 +1,80 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node *link;
+};
+ struct node *add_beg(struct node *head1, int data1){
+    struct node *ptr=malloc(sizeof(struct node));
+    struct node *ptr2;
+    ptr->data=data1;
+    ptr->link=head1;
+    head1=ptr;
+ 
+    ptr2=head1;
+  
+  return head1;
+ }
+ struct node *add_end(struct node *head1,int data2){
+struct node *ptr=malloc(sizeof(struct node));
+    struct node *temp;
+    struct node *ptr2;
+    ptr->data=data2;
+    ptr->link=NULL;
+    temp=head1;
+    ptr2=head1;
+    while(temp->link!=NULL){
+        temp=temp->link;
+    }
+    printf("\n");
+    temp->link=ptr;
+  return head1;
+}
+struct node *add_mid(struct node *head1,int data3){
+    struct node *ptr=malloc(sizeof(struct node));
+    struct node *temp;
+    struct node *ptr3;
+    struct node *temp1;
+    temp1=head1;
+    int i=1;
+    ptr->data=data3;
+    ptr->link=NULL;
+    int pos=2;
+    temp=head1;
+    ptr3=head1;
+    while(i<pos){
+        ptr3=temp;
+        temp=temp->link;
+        i=i+1;
+    }
+    ptr->link=ptr3->link;
+    ptr3->link=ptr;
+   return head1;
+    
+    
+}
+int main(){
+    struct node *head=malloc(sizeof(struct node));
+    struct node *head1=malloc(sizeof(struct node));
+    struct node *ptr2;
+    head1->data=10;
+    head->data=40;
+    head1->link=head;
+    head->link=NULL;
+    int data1=20;
+    int data2=50;
+    int data3=60;
+    struct node *a;
+    struct node *b;
+    struct node *c;
+    a=add_beg(head1,data1);
+    b=add_end(head1,data2);
+    c=add_mid(head1,data3);
+    ptr2=head1;
+  while(ptr2->link!=NULL){
+      printf(" %d",ptr2->data);
+      ptr2=ptr2->link;
+  }
+  printf(" %d",ptr2->data);
+  
+}
