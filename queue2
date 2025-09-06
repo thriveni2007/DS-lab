@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include<stdlib.h>
+#define max 4
+ int a=1,b=1;
+
+struct node{
+    int data;
+    struct node *link;
+};
+struct node *rear=NULL;
+struct node *front=NULL;
+void enque(int num){
+    struct node *ptr=malloc(sizeof(struct node));
+    ptr->data=num;
+    if(front==NULL){
+    front=ptr;
+    rear=front;
+    }
+    rear->link=ptr;
+    rear=ptr;
+}
+int del(){
+    int num;
+        num=front->data;
+        front=front->link;
+    return num;
+}
+void display(){
+    struct node *temp=front;
+    while(temp!=NULL){
+     printf(" elements:%d\n",temp->data);
+     temp=temp->link;
+    }}
+int main() {
+    int n=4;
+    int value,num;
+    while(1){
+       
+    printf("enter 1 for enque");
+    printf("\nenter 2 for deletion");
+    printf("\nenter 3 for display");
+    printf("\nenter 4 for exit\n");
+    scanf("%d",&num);
+    switch(num){
+       case 1:printf("enter value");
+       scanf("%d",&value);
+              enque(value);
+               break;
+      case 2:del();
+              break;
+      case 3:display();
+             break;
+     case 4:exit(0);
+    }
+   
+    }
+    return 0;
+}
