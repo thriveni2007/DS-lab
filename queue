@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include<stdlib.h>
+#define max 4
+int arr[max];
+int front=-1,rear=-1;
+void enque(int data){
+    if (front==-1)
+    front++;
+    if (rear==max-1)
+    printf("over flow condition");
+    else{
+        rear=rear+1;
+        arr[rear]=data;
+    }}
+int del(){
+    int num;
+    if (front==max){
+        front=-1;
+        printf("underflow conditon");
+    }
+    else{
+        num=arr[front];
+        front++;
+    }
+    return num;
+}
+void display(){
+    for(int i=front;i<=rear;i++){
+     printf(" elements:%d\n",arr[i]);
+    }}
+int main() {
+    int n=4;
+    int value,num;
+    while(1){
+       
+    printf("enter 1 for enque");
+    printf("\nenter 2 for deletion");
+    printf("\nenter 3 for display");
+    printf("\nenter 4 for exit\n");
+    scanf("%d",&num);
+    switch(num){
+       case 1:printf("enter value");
+       scanf("%d",&value);
+              enque(value);
+               break;
+      case 2:del();
+              break;
+      case 3:display();
+             break;
+     case 4:exit(0);
+    }
+   
+    }
+    return 0;
+}
