@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include<stdlib.h>
+#define max 4
+int arr[4];
+struct node{
+    int  data;
+    struct node *link;
+};
+void push(struct node **top,int data1){
+    struct node *ptr=malloc(sizeof(struct node));
+    ptr->data=data1;
+    ptr->link=*top;
+    *top=ptr;
+    //printf("%d",top->data);
+    
+}
+
+void display(struct node *top){
+    struct node *head=top;
+     while(head!=NULL){
+        printf("%d",head->data);
+        head=head->link;
+    }
+}
+
+int main() {
+ struct node *top=NULL;
+  push(&top,20);
+  push(&top,30);
+  push(&top,40);
+  push(&top,50);
+  display(top);
+    return 0;
+}
