@@ -1,0 +1,40 @@
+//stack
+#include <stdio.h>
+#define max 4
+int arr[max];
+int top=-1;
+void push(int a){
+   if (top>4 ){
+       printf("overflow condition");
+   }
+   else{
+       top=top+1;
+       arr[top]=a;
+   }
+   printf("%d",arr[top]);
+}
+void pop(){
+    int data;
+    if(top==-1){
+        printf("unnderflow condition");
+    }
+    else{
+        data=arr[top];
+        top=top-1;
+        
+    }
+    printf("\n");
+    printf("data poped out:");
+    printf("%d",data);
+    printf("\ntop is placed at %d",top);
+    
+}
+int main() {
+    push(2);
+    push(3);
+    push(4);
+    push(6);
+    pop();
+
+    return 0;
+}
