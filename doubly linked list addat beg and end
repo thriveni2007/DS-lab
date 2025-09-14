@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node *link;
+    struct node *prev;
+};
+struct node* allocate(struct node *head,int num){
+    struct node *ptr=malloc(sizeof(struct node));
+    struct node *temp;
+    ptr->data=num;
+    ptr->link=NULL;
+    ptr->prev=NULL;
+    if(head==NULL){
+         head=ptr;
+         temp=head;
+        return head;
+    }
+    else{
+        temp->link=ptr;
+        ptr->prev=temp;
+        temp=ptr;
+        return head;
+    }
+}
+struct node* beg_add(struct node *head,int num){
+    struct node *ptr=malloc(sizeof(struct node));
+    struct node *temp;
+    ptr->data=num;
+    ptr->link=head;
+    ptr->prev=NULL;
+    head=ptr;
+}
+struct node* end_add(struct node *head,int num){
+    struct node *ptr=malloc(sizeof(struct node));
+    struct node *temp=head;
+    
+    ptr->data=num;
+    ptr->link=NULL;
+    ptr->prev=NULL;
+    while(temp->link!=NULL){
+        temp=temp->link;
+    }
+    ptr->prev=temp;
+    temp->link=ptr;
+    
+    return head;
+}
+void display(struct node *head){
+    struct node *temp=head;
+    while(temp!=NULL){
+        printf("%d ",temp->data);
+        temp=temp->link;
+        }
+}
+int main() {
+     struct node *head=NULL;
+    head=allocate(head,20);
+    head=allocate(head,30);
+    head=allocate(head,40);
+     head=beg_add(head,10);
+     head=end_add(head,50);
+      display(head);
+    return 0;
+}
