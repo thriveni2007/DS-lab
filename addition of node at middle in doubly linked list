@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node *link;
+    struct node *prev;
+};
+struct node* allocate(struct node *head,int num){
+    struct node *ptr=malloc(sizeof(struct node));
+    struct node *temp;
+    ptr->data=num;
+    ptr->link=NULL;
+    ptr->prev=NULL;
+    if(head==NULL){
+         head=ptr;
+         temp=head;
+        return head;
+    }
+    else{
+        temp->link=ptr;
+        ptr->prev=temp;
+        temp=ptr;
+        return head;
+    }
+}
+void display(struct node *head){
+    struct node *temp=head;
+    while(temp!=NULL){
+        printf("%d ",temp->data);
+        temp=temp->link;
+        }
+}
+struct node* dd_midd(struct node *head){
+    struct node *temp=head;
+    struct node *temp1=head;
+    
+    int pos=2;
+    int i=1;
+    while(i<=pos){
+        temp1=temp;
+        temp=temp->link;
+        i++;
+    }
+    temp1->link=temp->link;
+    temp->link->prev=temp;
+  return head;
+    
+}
+struct node* add_midd(struct node *head ,int  num){
+     struct node *ptr=malloc(sizeof(struct node));
+    struct node *temp=head;
+    ptr->data=num;
+    ptr->link=NULL;
+    ptr->prev=NULL;
+     int pos=2;
+    int i=1;
+    while(i<pos){
+        temp=temp->link;
+        i++;
+    }
+    ptr->link=temp->link;
+    ptr->prev=temp;
+    temp->link=ptr;
+    return head;
+}
+int main() {
+     struct node *head=NULL;
+    head=allocate(head,20);
+    head=allocate(head,30);
+    head=allocate(head,40);
+     head=allocate(head,50);
+      head=allocate(head,60);
+      head=dd_midd(head);
+      head=add_midd(head,100);
+      display(head);
+    return 0;
+}
