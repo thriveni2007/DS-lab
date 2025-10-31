@@ -1,0 +1,91 @@
+#include <stdio.h>
+#include<stdlib.h>
+struct node{
+    int data;
+    struct node *left;
+    struct node *right;
+    int height;
+};
+int max(int a,int b){
+    return (a>b)?a:b;
+}
+struct node *create(int num){
+    struct node *ptr=malloc(sizeof(struct node));
+    ptr->data=num;
+    ptr->left=NULL;
+    ptr->right=NULL;
+    ptr->height=1;
+    return ptr;
+}
+ 
+int getheight(struct node *root){
+    if(root==NULL)
+    return 0;
+    return root->height;
+}
+int balance(struct node *root){
+    if(root==NULL)
+    return 0;
+    return getheight(root->left)-getheight(root->right);
+}
+struct node *leftrotate(struct node *root){
+    struct node *x=root->right;
+    struct node *y=x->left;
+    x->left=root;
+    root->right=y;
+    root->height=1+(max(getheight(root->left),getheight(root->right)));
+       x->height=1+(max(getheight(x->left),getheight(x->right)));
+       return x;
+}
+struct node *rightrotate(struct node *root){
+    struct node *x=root->left;
+    struct node *y=x->right;
+    x->right=root;
+    root->left=y;
+    root->height=1+(max(getheight(root->left),getheight(root->right)));
+       x->height=1+(max(getheight(x->left),getheight(x->right)));
+       return x;
+}
+struct node *insert(struct node *root,int num){
+    if(root==NULL)
+    return create(num);
+    else if (num<root->data){
+        root->left=insert(root->left,num);
+    }
+     else if (num>root->data){
+        root->right=insert(root->right,num);
+    }
+    root->height=1+(max(getheight(root->left),getheight(root->right)));
+    int balanceroot=balance(root);
+    if(balanceroot>1 && num<root->left->data){
+       return rightrotate(root);
+    }
+    else if(balanceroot<-1&&num>root->right->data){
+        return leftrotate(root);
+    }
+    else if(balanceroot>1 &&num>root->left->data){
+        root->left=leftrotate(root->left);
+        return rightrotate(root);
+    }
+    else if(balanceroot<-1 && num <root->right->data){
+        root->right=rightrotate(root->right);
+        return leftrotate(root);
+    }
+    return root;
+}
+void display(struct node *root){
+    struct node *root1=root;
+    if(root1!=NULL){
+    display(root1->left);
+    printf("%d",root1->data);
+    display(root1->right);}
+}
+int main() {
+    struct node *root=NULL;
+    root=insert(root,10);
+    root=insert(root,20);
+    root=insert(root,30);
+    root=insert(root,40);
+    display(root);
+    return 0;
+}
