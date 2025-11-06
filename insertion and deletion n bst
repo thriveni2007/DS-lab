@@ -1,0 +1,77 @@
+#include <stdio.h>
+#include<stdlib.h>
+struct node {
+    int data;
+    struct node *left;
+    struct node *right;
+};
+struct node *create(int num){
+    struct node *temp=malloc(sizeof(struct node));
+    temp->data=num;
+    temp->left=NULL;
+    temp->right=NULL;
+    return temp;
+}
+struct node *min(struct node *root){
+    struct node *temp=root;
+    if(temp->left!=NULL){
+        temp=temp->left;
+    }
+    return temp;
+}
+struct node *insert(struct node *root,int num){
+    if(root==NULL)return create(num);
+    else if(num>root->data){
+        root->right=insert(root->right,num);
+    }
+    else if(num<root->data){
+        root->left=insert(root->left,num);
+    }
+    return root;
+}
+struct node *del(struct node *root,int num){
+    if(num<root->data){
+      root->left=del(root->left,num);
+    }
+    else if(num>root->data){
+       root->right=del(root->right,num); 
+    }
+    else{
+       if(root->right==NULL){
+           struct node *temp=root->left;
+           free(root);
+           return temp;
+       }
+       else if(root->left==NULL){
+           struct node *temp=root->right;
+           free(root);
+           return temp;
+       }
+       struct node *temp=min(root->right);
+       root->data=temp->data;
+       root->right=del(root->right,temp->data);
+    }
+    return root;
+}
+void display(struct node *root){
+    if(root!=NULL){
+        display(root->left);
+        printf("%d ",root->data);
+        display(root->right);
+    }
+}
+int main() {
+    struct node *root=NULL;
+    root=insert(root,10);
+    root=insert(root,70);
+    root=insert(root,20);
+    root=insert(root,15);
+    root=insert(root,5);
+    root=insert(root,60);
+    display(root);
+    root=del(root,20);
+   // root=del(root,20);
+    
+ display(root);
+    return 0;
+}
