@@ -1,0 +1,47 @@
+public class Heap {
+
+	public static void main(String[] args) {
+		 int[] arr= {9,6,1,2,7,4,3};
+		 int low=0;
+		 int high=arr.length-1;
+		 heap(arr,low,high);
+		 for(int i=0;i<=high;i++){
+			 System.out.print(arr[i]+" ");
+		 }
+
+	}
+	public static void heap(int[] arr,int low,int high) {
+		for(int i=high/2;i>=0;i--) {
+			maxheap(arr,i,high);
+		}
+		for(int i=high;i>0;i--) {
+			swap(arr,0,i);
+			maxheap(arr,0,i-1);
+			
+		}
+		
+	}
+	public static void maxheap(int[] arr,int low,int high) {
+		int length=low;
+		int l=2*low+1;
+		int r=2*low+2;
+		 if(l<=high && arr[l]>arr[length] ) {
+			 length=l;
+		 }
+		 if(r<=high && arr[r]>arr[length]) {
+			 length=r;
+		 }
+		 if(length!=low) {
+			 swap(arr,length,low);
+			 maxheap(arr,length,high);
+		 }
+		
+	}
+	public static void swap(int[] arr,int a,int b) {
+		int temp;
+		temp=arr[a];
+		arr[a]=arr[b];
+		arr[b]=temp;
+	}
+
+}
