@@ -1,0 +1,58 @@
+ #include<stdio.h>
+ #include<stdlib.h>
+ #define max 100
+ int front=-1;
+ int rear=-1;
+ int arr[max];
+ void enqueue(int num){
+     if(front==-1)front=0;
+     if(rear==max-1)return;
+     else{
+         arr[++rear]=num;
+     }
+ }
+ int dequeue(){
+     int val=arr[front];
+     if(front==rear)front=rear=-1;
+     else
+     front=front+1;
+     return val;
+ }
+  
+ void bfs(int graph[max][max],int a,int num){
+ int visited[a];
+ int node;
+ for(int i=0;i<a;i++){
+visited[i]=0;}
+visited[num]=1;
+enqueue(num);
+while(front!=-1){
+     node=dequeue();
+    printf("%d",node);
+
+for(int i=0;i<a;i++){
+    if(graph[node][i]==1 &&!visited[i]){
+    visited[i]=1;
+    enqueue(i);
+
+    }
+    }}
+}
+ int main(){
+     int a;
+     printf("enter vartices");
+     scanf("%d",&a);
+     int graph[max][max];
+     int num;
+     printf("enter values");
+     for(int i=0;i<a;i++){
+         for(int j=0;j<a;j++){
+              scanf("%d",&graph[i][j]);
+         }
+     }
+     printf("enterr a node to traversal");
+     scanf("%d",&num);
+     bfs(graph,a,num);
+     
+     
+ }
