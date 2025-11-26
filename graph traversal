@@ -1,0 +1,74 @@
+#include <stdio.h>
+#define max 100
+int front=-1;
+int rear=-1;
+int arr2[max];
+void enqueue(int num){
+    if(front==-1)front=0;
+    if(rear==max-1)return;
+    else
+    arr2[++rear]=num;
+}
+int dequeue(){
+    
+    int num=arr2[front];
+    if(front==rear)front=rear=-1;
+    else
+    front++;
+    return num;
+}
+void bfs(int arr[10][10],int a,int val){
+    int visited[a];
+    for(int i=0;i<a;i++){
+        visited[i]=0;
+    }
+    enqueue(val);
+    while(front!=-1){
+        int num=dequeue();
+        printf("%d ",num);
+        visited[num]=1;
+        for(int i=0;i<a;i++){
+            if(arr[num][i]==1 && visited[i]==0){
+                enqueue(i);
+            }
+        }
+    }
+}
+void dfs(int arr[10][10],int a,int val,int visited[]){
+    visited[val]=1;
+    printf("%d",val);
+    for(int i=0;i<a;i++){
+        if(arr[val][i]==1 && visited[i]==0){
+            dfs(arr,a,i,visited);
+        }
+    }
+}
+int main() {
+    int num;
+    int val;
+    printf("enter no of vertices");
+    scanf("%d",&num);
+    int arr[num][num];
+    printf("enter adjacency matrix");
+    for(int i=0;i<num;i++){
+        for(int j=0;j<num;j++){
+            scanf("%d",&arr[i][j]);
+        }
+    }
+    int visited[num];
+     for(int i=0;i<num;i++){
+        visited[i]=0;
+    }
+    printf("enter start vertex");
+    scanf("%d",&val);
+    int ch;
+    while(1){
+        printf("bfs\ndfs \n enter choice");
+        
+        scanf("%d",&ch);
+   if(ch==1) bfs(arr,num,val);
+   else if(ch ==2) dfs(arr,num,val,visited);
+        else break;
+    }
+    return 0;
+}
