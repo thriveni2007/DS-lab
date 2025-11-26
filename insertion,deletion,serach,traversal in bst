@@ -1,0 +1,113 @@
+ #include <stdio.h>
+#include<stdlib.h>
+struct node {
+    int data;
+    struct node *left;
+    struct node *right;
+};
+struct node *create(int num){
+    struct node *ptr=malloc(sizeof(struct node));
+    ptr->data=num;
+    ptr->left=NULL;
+    ptr->right=NULL;
+    return ptr;
+}
+struct node *insert(struct node *root,int num){
+    if(root==NULL)
+    return create(num);
+    else if(num>root->data)
+    root->right=insert(root->right,num);
+    else if(num<root->data)
+    root->left=insert(root->left,num);
+    return root;  
+}
+void displaypre(struct node *root){
+if(root!=NULL){
+        printf("%d ",root->data);
+        displaypre(root->left);
+        displaypre(root->right);}
+}
+void displaypost(struct node *root){
+    if(root!=NULL){
+         displaypost(root->left);
+        displaypost(root->right);
+           printf("%d ",root->data);
+    }
+}
+void displayin(struct node *root){
+    if(root!=NULL){
+                 displayin(root->left);
+                     printf("%d ",root->data);
+        displayin(root->right);
+    }
+   
+}
+struct node  *search(struct node *root,int num){
+    if(root==NULL||root->data==num)
+        return root;
+    else if(num<root->data)
+    return search(root->left,num);
+    else if(num>root->data)
+    return search(root->right,num);
+}
+struct node *min(struct node *root){
+    struct node *temp=root;
+    while(temp->left!=NULL){
+        temp=temp->left;
+    }
+    return temp;
+}
+struct node *delete(struct node *root,int num){
+    if(num<root->data)
+    root->left=delete(root->left,num);
+    else if(num>root->data)
+    root->right=delete(root->right,num);
+    else{
+        if(root->left==NULL){
+        struct node *temp=root->right;
+        free(root);
+        return temp;
+        }
+        else if(root->right==NULL){
+        struct node *temp=root->left;
+        free(root);
+        return temp;
+        }
+        struct node *temp=min(root->right);
+        root->data=temp->data;
+        root->right= delete(root->right,temp->data);
+    }
+    return root;
+}
+int main() {
+    struct node *root=NULL;
+    root=insert(root,20);
+    root=insert(root,2);
+    root=insert(root,10);
+    root=insert(root,5);
+    root=insert(root,50);
+    root=insert(root,60);
+    root=insert(root,45);
+    displaypre(root);
+    printf("\n");
+    displaypost(root);
+     printf("\n");
+    displayin(root);
+     printf("\n");
+    struct node *key=search(root,0);
+    if(key==NULL){
+        printf("element not found");
+    }
+    else{
+        printf("element found");
+    }
+   root= delete(root,20);
+    printf("\n");
+    displaypre(root);
+    printf("\n");
+    displaypost(root);
+     printf("\n");
+    displayin(root);
+     printf("\n");
+    return 0;
+}
