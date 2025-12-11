@@ -1,0 +1,111 @@
+#include <stdio.h>
+#include<stdlib.h>
+#include <stdbool.h>
+struct node{
+       struct node *link;
+       int data;
+       };
+struct node *insert(struct node *head,int num){
+       struct node *ptr =malloc(sizeof(struct node));
+       ptr->link=NULL;
+       ptr->data=num;
+       if(head==NULL)
+       head=ptr;
+       else{
+            struct node *ptr1=head;
+       while(ptr1->link!=NULL){
+                            ptr1=ptr1->link;}
+       ptr1->link=ptr;
+       }
+       return head;}
+struct node *enddelete(struct node *head){
+        struct node *ptr=head;
+        struct node *ptr1=head;
+    while(ptr->link!=NULL){
+    ptr1=ptr;
+    ptr=ptr->link;}  
+    ptr1->link=NULL;
+    return head; 
+}       
+void display(struct node *head){
+    struct node *ptr=head;
+    while(ptr!=NULL){
+                     printf("%d",ptr->data);
+                     ptr=ptr->link;}   
+                     
+}  
+struct node *begdelete(struct node *head){
+       head=head->link;
+       return head;
+       }     
+struct node *endadd(struct node *head,int num){
+       struct node *ptr1=malloc(sizeof(struct node));
+       ptr1->link=NULL;
+       ptr1->data=num;
+       struct node *ptr=head;
+    while(ptr->link!=NULL){
+                     ptr=ptr->link;} 
+                     ptr->link=ptr1;
+                     return head;  
+}   
+struct node *begadd(struct node *head,int num){
+       struct node *ptr=malloc(sizeof(struct node));
+       ptr->data=num;
+       ptr->link=head;
+       head=ptr;
+       return head;}
+struct node *midadd(struct node *head,int num,int pos){
+       struct node *ptr=malloc(sizeof(struct node));
+       struct node *ptr1=head;
+       ptr->data=num;
+       struct node *temp;
+       int i=0;
+       while(i<pos){
+       temp=ptr1;
+       ptr1=ptr1->link;i++;
+       }
+    temp->link=ptr;
+    ptr->link=ptr1;
+    return head;   
+}  
+struct node *middelete(struct node *head,int pos){
+       struct node *ptr=head;
+       struct node *ptr1;
+       int i=0;
+        while(i<pos){
+        ptr1=ptr;
+        ptr=ptr->link;i++;}
+        ptr1->link=ptr->link;
+        return head;}                       
+int main(){
+    struct node *head=NULL;
+    int num,key;
+     int pos=4;
+  while(true){
+  printf("enter val 0 to exit");
+  scanf("%d",&num);
+  if(num==0)break;;
+  switch(num){
+      case 1: printf("enter val");scanf("%d",&key);
+      head=insert(head,key);
+      display(head);
+    printf("\n");break;
+   case 2: head=endadd(head,50);
+    display(head);
+     printf("\n");break;
+    case 3:head=begadd(head,5);
+    display(head);
+     printf("\n");break;
+   case 4: head=midadd(head,35,pos);
+    display(head);
+     printf("\n");break;
+  case 5:  head=enddelete(head);
+    display(head);
+     printf("\n");break;
+   case 6: head=begdelete(head);
+    display(head);
+     printf("\n");break;
+    case 7:head=middelete(head,pos);
+    display(head);break;
+    }
+  }}
